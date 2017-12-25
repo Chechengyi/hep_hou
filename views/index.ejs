@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script type="text/javascript" src="/javascripts/ckeditor/ckeditor.js"></script>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <textarea id="TextArea1" cols="20" rows="2" class="ckeditor"></textarea>
+
+  <button id="btn">提交</button>
+  </body>
+  <script>
+      CKEDITOR.replace('TextArea1');
+      var btnDom = document.getElementById('btn')
+
+    btn.onclick = function () {
+        console.log(CKEDITOR.instances.TextArea1.getData())
+    }
+
+  </script>
+</html>
