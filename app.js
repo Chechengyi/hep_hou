@@ -5,20 +5,18 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mysql = require('mysql');
+var session = require('express-session')
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+var index = require('./controller/index');
+var users = require('./controller/users');
+// var models = require('./models/index')
 
 var app = express();
 
-// 数据库配置
-var config = {
-    host: '127.0.0.1',
-    user: 'root',
-    password: ''
-}
 
-var pool = mysql.createPool(config)
+var myConnection = require('express-myconnection')
+
+// var pool = mysql.createPool(config)
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -31,6 +29,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use( session({
+    secret: 'keyboard cat',
+    cookie: ('name', 'value', { path: '/', httpOnly: true, secure: false})
+}) )
 
 app.use('/', index);
 app.use('/users', users);
