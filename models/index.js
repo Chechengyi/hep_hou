@@ -18,7 +18,14 @@ orm.connect( url, function (err, db) {
         models.Magazine = db.define("magazine", {
             m_id: { type: 'serial', key: true },
             m_name: String,
-            m_img: String
+            m_img: String,
+            m_info: String
+        })
+        models.Doclist = db.define("doc", {
+            t_id: { type: 'serial', key: true },
+            m_id: Number,
+            title: String,
+            cont: String
         })
     }
 

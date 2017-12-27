@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js" ></script>
+    <title>编辑杂志</title>
+    <style>
+        .title-btn {
+            float: right;
+            margin-right: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-header">
+        <h1 class="text-center" >编辑杂志</h1>
+    </div>
+    <div class="container" >
+        <div id="num" style="display: none" ><%=num%></div>
+        <div class="row" >
+            <div class="col-md-10 col-md-offset-1 " >
+                <div style="float: left" > 文章列表： </div>
+                <div style="margin-left: 50%" > <a  href="/doclist/add?num=<%=num%>" class="btn btn-default" >添加文章</a> </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 50px" >
+            <div class="col-md-10 col-md-offset-1 " >
+                <ul class="list-group" id="doc-list" >
+                    <li class="list-group-item">Cras justo odio <button class="title-btn btn btn-info btn-xs " >halo</button> </li>
+                    <li class="list-group-item">Dapibus ac facilisis in</li>
+                    <li class="list-group-item">Morbi leo risus</li>
+                    <li class="list-group-item">Porta ac consectetur ac</li>
+                    <li class="list-group-item">Vestibulum at eros</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+
+        window.addEventListener('DOMContentLoaded', function () {
+            $.ajax( {
+                url: '/doclist',
+                type: 'get',
+                data: {
+                    num: $('#num').html()
+                },
+                success: function (res) {
+                    render( JSON.parse(res) )
+                }
+            } )
+
+            function render (data) {
+                var html = ''
+                for ( var i=0; i<data.length; i++ ) {
+                    html += '<li class="list-group-item">' +
+                            '<a href="" >' + data[i].title + '</a>' +
+                        '<button class="title-btn btn btn-danger btn-xs " >删除</button>' +
+                        ' </li>'
+                }
+
+                $('#doc-list').html(html)
+            }
+        })
+
+    </script>
+</body>
+</html>

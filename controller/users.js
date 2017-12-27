@@ -21,20 +21,11 @@ router.post('/login', function (req, res, next) {
         res.render('err', {content: '用户名或密码错误', url: '/users'})
       } else {
         req.session.isLogin = true
-        res.render( 'users/index' )
+        res.redirect( '/magazines' )
       }
     } )
 })
-// 主页内容页面
-router.get('/login', function (req, res, next) {
 
-  // res.render('users/index')
-    if ( req.session.isLogin ) {
-        res.render('users/index')
-    } else {
-        res.render('err', { content: '请先登录', url: '/users' })
-    }
-} )
 
 
 

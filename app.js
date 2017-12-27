@@ -9,6 +9,7 @@ var session = require('express-session')
 
 var index = require('./controller/index');
 var users = require('./controller/users');
+var doclist = require('./controller/doclist')
 // var models = require('./models/index')
 
 var app = express();
@@ -21,6 +22,7 @@ var myConnection = require('express-myconnection')
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.use('/uploads',express.static(path.join(__dirname, 'uploads')))
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -37,6 +39,7 @@ app.use( session({
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/doclist', doclist)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
