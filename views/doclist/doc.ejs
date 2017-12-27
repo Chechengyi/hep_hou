@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet">
-    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js" ></script>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="/javascripts/ckeditor/ckeditor.js"></script>
     <script src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert-dev.min.js"></script>
     <title>文章信息</title>
@@ -15,7 +15,50 @@
 <body>
     <div id="num" style="display: none" ><%=num%></div>
     <div class="page-header">
-        <h1 class="text-center" id="title" >查看文章</h1>
+        <h1 class="text-center" id="title" >
+            <a  href="/magazines" title="回到首页"  style="
+            position: absolute;
+            display: block;
+            width: 30px;
+            height: 30px;
+            left: 20%;
+        " > <span class="glyphicon glyphicon-home" ></span> </a> 查看文章</h1>
     </div>
+    <div class="container" >
+        <div class="row" >
+            <div class="col-md-6 col-md-offset-3" >
+                <div> <button class="btn btn-default" >修改文章</button> </div>
+                <div id="content" >
+                    <h3 class="text-center" >犬夜叉真好看</h3>
+                    <p>太好看了</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.addEventListener('DOMContentLoaded', function () {
+
+            $.ajax({
+                url: '/doclist/getdoc',
+                type: 'get',
+                data: {
+                    num: $('#num').text()
+                },
+                success: function (res) {
+                    console.log(res)
+                    render(JSON.parse(res))
+                }
+            })
+
+            function render (data) {
+                var html = '<h3 class="text-center" >'+ data[0].title+ '</h3>' +
+                    '<p>'+data[0].cont+'</p>'
+
+                $('#content').html(html)
+
+            }
+
+        })
+    </script>
 </body>
 </html>

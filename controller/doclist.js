@@ -52,7 +52,11 @@ router.get('/seedoc', function (req, res, next) {
 
 // 查看杂志文章信息
 router.get('/getdoc', function (req, res, next) {
-    
+    var num = req.query.num
+    // res.send(num)
+    models.Doclist.find( {t_id: num}, function (err, item) {
+        res.send( JSON.stringify(item) )
+    } )
 })
 
 module.exports = router;
