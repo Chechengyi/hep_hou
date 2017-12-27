@@ -3,11 +3,11 @@ var router = express.Router();
 var multer = require('multer');
 var models = require('../models/index.js')
 
-var num
+
 
 // 查询杂志文章列表信息 返回给前台
 router.get('/', function (req, res, next ) {
-    num = req.query.num
+    var num = req.query.num
     console.log( '...........' + num )
     console.log(num)
     models.Doclist.find( { m_id: parseInt(num) }, function (err, items) {
@@ -18,7 +18,7 @@ router.get('/', function (req, res, next ) {
 // 给杂志添加文章页面
 router.get('/add', function (req, res, next) {
     if ( req.session.isLogin ) {
-        num = req.query.num
+        var num = req.query.num
         res.render('doclist/addDoclist', {num: num} )
     } else {
         res.render('err', { content: '请先登录', url: '/users' })
@@ -44,5 +44,15 @@ router.post('/add', function (req, res, next) {
     }
 })
 
+// 查看杂志文章页面
+router.get('/seedoc', function (req, res, next) {
+    var num = req.query.num
+    res.render( 'doclist/doc', {num: num} )
+})
+
+// 查看杂志文章信息
+router.get('/getdoc', function (req, res, next) {
+    
+})
 
 module.exports = router;

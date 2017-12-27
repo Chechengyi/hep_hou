@@ -59,7 +59,7 @@
                 var html = ''
                 for ( var i=0; i<data.length; i++ ) {
                     html += '<li class="list-group-item">' +
-                            '<a href="" >' + data[i].title + '</a>' +
+                            '<a href="/doclist/seedoc?num=' + data[i].t_id +'">' + data[i].title + '</a>' +
                         '<button class="title-btn btn btn-danger btn-xs " >删除</button>' +
                         ' </li>'
                 }
