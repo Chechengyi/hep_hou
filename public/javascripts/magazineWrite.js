@@ -39,7 +39,7 @@ window.addEventListener('DOMContentLoaded', function () {
             type: 'post',
             data: {
                 m_name: $('#m_name').val(),
-                m_info: $('#m_info').val(),
+                m_info: CKEDITOR.instances.m_info.getData(),
                 m_id: $('#m_id').val()
             },
             success: function (res) {

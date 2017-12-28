@@ -8,7 +8,6 @@ var models = require('../models/index.js')
 // 查询杂志文章列表信息 返回给前台
 router.get('/', function (req, res, next ) {
     var num = req.query.num
-    console.log( '...........' + num )
     console.log(num)
     models.Doclist.find( { m_id: parseInt(num) }, function (err, items) {
         res.send(JSON.stringify(items))
@@ -58,5 +57,6 @@ router.get('/getdoc', function (req, res, next) {
         res.send( JSON.stringify(item) )
     } )
 })
+
 
 module.exports = router;
