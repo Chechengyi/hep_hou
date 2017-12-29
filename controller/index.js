@@ -66,12 +66,19 @@ router.get('/magazines/change', function (req, res, next) {
 // 更改杂志封面图片
 router.post('/magazines/img',upload.single("m_img"), function (req, res, next) {
         var image = req.file.path
+        var newPath = 'uploads/' + req.file.originalname
         if ( req.session.isLogin ) {
-            var m_id = req.body.m_id
-            models.Magazine.find({ m_id: m_id }).each( function (result) {
-                result.m_img = '/'+image
-            } ).save( function (err) {
-                res.send('/'+image)
+            fs.rename( image, newPath, function (err) {
+                if ( err ) {
+                    throw err
+                } else {
+                    var m_id = req.body.m_id
+                    models.Magazine.find({ m_id: m_id }).each( function (result) {
+                        result.m_img = 'http://localhost:3000/'+newPath
+                    } ).save( function (err) {
+                        res.send('/'+newPath)
+                    } )
+                }
             } )
         } else {
             res.send('false')
