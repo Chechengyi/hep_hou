@@ -13,52 +13,45 @@
     <title>文章信息</title>
 </head>
 <body>
-    <div id="num" style="display: none" ><%=num%></div>
-    <div class="page-header">
-        <h1 class="text-center" id="title" >
-            <a  href="/magazines" title="回到首页"  style="
+<div id="num" style="display: none" ><%=num%></div>
+<div class="page-header">
+    <h1 class="text-center" id="title" >
+        <a  href="/magazines" title="回到首页"  style="
             position: absolute;
             display: block;
             width: 30px;
             height: 30px;
             left: 20%;
         " > <span class="glyphicon glyphicon-home" ></span> </a> 查看文章</h1>
-    </div>
-    <div class="container" >
-        <div class="row" >
-            <div class="col-md-6 col-md-offset-3" >
-                <div> <button class="btn btn-default" >修改文章</button> </div>
-                <div id="content" >
-                    <h3 class="text-center" >犬夜叉真好看</h3>
-                    <p>太好看了</p>
-                </div>
+</div>
+<div class="container">
+    <div class="row" >
+        <div class="col-md-10 col-md-offset-1" >
+            <div> <button class="btn btn-default" id="c_btn" style="margin-right: 10px" >修改文章</button>
+                <a href="javascript:void(0)" id="back" style="display: none" > 返回 </a> </div>
+            <div id="content1" >
+                <h3 class="text-center" >犬夜叉真好看</h3>
+                <p>太好看了</p>
+            </div>
+            <div id="content2" style="display: none" >
+                <form action="/doclist/changedoc" method="post" >
+                    <div class="form-group">
+                        <label for="exampleInputEmail1"></label>
+                        <input type="text" class="form-control" id="doc_title" name="title">
+                    </div>
+                    <input type="hidden" name="num" value="<%=num%>" >
+                    <div class="form-group">
+                        <textarea id="doc_cont" cols="20" rows="2" class="ckeditor" name="cont" ></textarea>
+                    </div>
+                    <button type="submit" id="sub-btn" class="btn btn-default">提交</button>
+                </form>
             </div>
         </div>
     </div>
-    <script>
-        window.addEventListener('DOMContentLoaded', function () {
-
-            $.ajax({
-                url: '/doclist/getdoc',
-                type: 'get',
-                data: {
-                    num: $('#num').text()
-                },
-                success: function (res) {
-                    console.log(res)
-                    render(JSON.parse(res))
-                }
-            })
-
-            function render (data) {
-                var html = '<h3 class="text-center" >'+ data[0].title+ '</h3>' +
-                    '<p>'+data[0].cont+'</p>'
-
-                $('#content').html(html)
-
-            }
-
-        })
-    </script>
+</div>
+<script>
+    CKEDITOR.replace('doc_cont');
+</script>
+<script src="/javascripts/doc.js" > </script>
 </body>
 </html>

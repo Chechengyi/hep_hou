@@ -58,5 +58,37 @@ router.get('/getdoc', function (req, res, next) {
     } )
 })
 
+// 修改文章信息
+router.post('/changedoc', function (req, res, next) {
+    if ( req.session.isLogin ) {
+        var num = req.body.num
+        var title = req.body.title
+        var cont = req.body.cont
+        // res.redirect('/doclist/seedoc?num='+num)
+        models.Doclist.find( {t_id: num} ).each( function (result) {
+            result.title = title
+            result.cont = cont
+        } ).save( function (err) {
+            res.redirect('/doclist/seedoc?num='+num)
+        } )
+
+    } else {
+        res.render('err', { content: '请先登录', url: '/users' })
+    }
+})
+
+// 删除文章
+router.get('/remove', function (req, res, next) {
+    if ( req.session.isLogin ) {
+        var num = req.query.num
+        var pnum = req.query.pnum
+        // res.redirect('/magazines/list?num=' +pnum)
+        models.Doclist.find({t_id: num}).remove( function (err) {
+            res.redirect('/magazines/list?num=' +pnum)
+        } )
+    } else {
+        res.render('err', { content: '请先登录', url: '/users' })
+    }
+})
 
 module.exports = router;

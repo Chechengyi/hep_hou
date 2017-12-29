@@ -150,7 +150,8 @@ router.post('/magazines/add', upload.single("m_img"), function (req, res, next) 
 router.get('/magazines/list', function (req, res, next) {
     if ( req.session.isLogin ) {
         var num = req.query.num
-        res.render('users/magazinesList', { num: num })
+        var name = req.query.name
+        res.render('users/magazinesList', { num: num, name: name })
     } else {
         res.render('err', { content: '请先登录', url: '/users' })
     }

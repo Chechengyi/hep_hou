@@ -23,7 +23,7 @@
             width: 30px;
             height: 30px;
             left: 20%;
-        " > <span class="glyphicon glyphicon-home" ></span> </a>编辑杂志</h1>
+        " > <span class="glyphicon glyphicon-home" ></span> </a>编辑杂志--<%=name%></h1>
     </div>
     <div class="container" >
         <div id="num" style="display: none" ><%=num%></div>
@@ -65,8 +65,8 @@
                 var html = ''
                 for ( var i=0; i<data.length; i++ ) {
                     html += '<li class="list-group-item">' +
-                            '<a href="/doclist/seedoc?num=' + data[i].t_id +'">' + data[i].title + '</a>' +
-                        '<button class="title-btn btn btn-danger btn-xs " >删除</button>' +
+                            '<a href="/doclist/seedoc?num=' + data[i].t_id +'" target="_blank" >' + data[i].title + '</a>' +
+                        '<a class="title-btn btn btn-danger btn-xs "  href="/doclist/remove?num='+data[0].t_id+'&pnum='+$('#num').text() + '" >删除</a>' +
                         ' </li>'
                 }
 
