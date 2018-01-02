@@ -26,6 +26,14 @@
             margin-left: 100px;
             margin-top: 50px;
         }
+        .choose-img-btn {
+            margin: 0 10px 10px;
+
+        }
+        .choose-img-btn.active {
+            background-color: #424283;
+            color: #fff
+        }
     </style>
 </head>
 <body>
@@ -51,11 +59,19 @@
                         <div class="name-box" > <h1><%=res[0].m_name%></h1> </div>
                         <div style="clear: both;" >
                             <form method="post" action="/magazines/info" enctype="multipart/form-data" id="myfrom" >
-                                <div class="form-group">
-                                    <label for="m_img">更换封面</label>
-                                    <input type="file" name="m_img" id="m_img" >
-                                    <a id="imgBtn" class="btn btn-xs btn-info " style="margin-top: 10px" >上传更换的封面</a>
+                                <div class="btn-box" >
+                                    <button type="button" class="btn active choose-img-btn " id="choose-1" >上传本地图片</button>
+                                    <button type="button" class="btn choose-img-btn " id="choose-2" >上传图片链接</button>
                                 </div>
+                                <div class="form-group" id="choose-1-res" >
+                                    <label for="m_img">选择本地图片</label>
+                                    <input type="file" name="m_img" id="m_img" >
+                                </div>
+                                <div class="form-group" id="choose-2-res" >
+                                    <label for="m_img">上传图片链接</label>
+                                    <input type="text" class="form-control" name="m_img_anchor" id="m_img_anchor" >
+                                </div>
+                                <a id="imgBtn" class="btn btn-xs btn-info " style="margin-bottom: 20px" >上传更换的封面</a>
                                 <input  type="hidden" value="<%=res[0].m_id%>" id="m_id" />
                                 <div class="form-group">
                                     <label for="m_name">杂志名</label>

@@ -10,9 +10,37 @@ router.get('/', function (req, res, next ) {
     var num = req.query.num
     console.log(num)
     models.Doclist.find( { m_id: parseInt(num) }, function (err, items) {
-        res.send(JSON.stringify(items))
+        res.send(JSON.stringify(items.reverse()))
     } )
 } )
+// 查询文章信息，从后往前查， 做分页查询
+router.get('/1', function (req, res, next) {
+    var page = parseInt( req.query.page )
+    var num =  parseInt( req.query.num ) // 每次查询几条
+    var id = parseInt( req.query.id )  // 查询文章的id
+    console.log(id)
+    models.Doclist.find( { m_id: id } ).count( function (err, counts) {
+        var offset = counts - ( page * num )
+        if ( offset >= 0 ) {
+            models.Doclist.find( { m_id: id } ).limit(num).offset(offset).run( function (err2, doc) {
+                // res.send(JSON.stringify(magazine.reverse()))
+                if ( doc.length == 0  ) {
+                    res.send('false')
+                } else {
+                    console.log( '+++++++' + doc.length)
+                    res.send(JSON.stringify(doc.reverse()))
+                }
+            } )
+        } else if ( -num < offset && offset < 0 )  {
+            num = num + offset
+            models.Doclist.find( { m_id: id } ).limit(num).offset(0).run( function (err2, doc) {
+                res.send( JSON.stringify(doc.reverse()) )
+            } )
+        } else if ( offset <= -num ) {
+            res.send('false')
+        }
+    } )
+})
 
 // 给杂志添加文章页面
 router.get('/add', function (req, res, next) {
